@@ -143,6 +143,10 @@ function populate(data){
 			  //TODO: alex - ask Nasko not sure why it is not working
 			  markers[i].addListener('click', function(i) {
 				  infowindows[i].open(map, markers[i]);
+				  for (var j=0;j<restaurantData.length;j++){
+					  if (i!=j)
+						  infowindows[j].close();
+				  }
 			  }.bind(this, i));
 		
 		}
