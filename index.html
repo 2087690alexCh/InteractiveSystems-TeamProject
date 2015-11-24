@@ -9,60 +9,61 @@
     <meta name="author" content="">
     <link rel="icon" href="./favicon.ico">
 
-    <title>Restaurant Finder</title>
+    <title>Foodle</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="cover.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="http://purecss.io/css/layouts/side-menu.css">
+
   </head>
 
   <body>
 
-    <div class="site-wrapper">
-
-      <div class="site-wrapper-inner">
-
-        <div class="cover-container">
-
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">Pavel add logo</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">Design Evaluation</a></li>
-                  <li><a href="#">Contacts-add contacts</a></li>
+    <div id="layout">
+    <!-- Menu toggle -->
+	<a href="#menu" id="menuLink" class="menu-link">
+	    <!-- Hamburger icon -->
+	    <span></span>
+	</a>
+          <div id="menu">
+	    <div class="pure-menu">
+              <span class="pure-menu-heading">
+		  <img src="logo.png" style="max-width:100%;max-height:100%;"></img>
+	      </span>
+                <ul class="pure-menu-list">
+                  <li class="pure-menu-item" class="menu-item-divided pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
+                  <li class="pure-menu-item"><a href="#" class="pure-menu-link">Design Evaluation</a></li>
+                  <li class="pure-menu-item"><a href="#" class="pure-menu-link">Contacts-add contacts</a></li>
                 </ul>
-              </nav>
-            </div>
+	    </div>
           </div>
 
-          <div class="inner cover">
-            <h1 class="cover-heading">Select a seach method</h1>
-            <p class="lead">Restaurant Finder is an easy Single Page Application allowing fast access to information about restaurants in your reagion. To begin, please select
-            a search option either by name or criteria</p>
-            <p class="lead">
-              <a href="./search-by-criteria.html" class="btn btn-lg btn-default">Search by Criteria</a>
-              <a href="./searchByName.html" class="btn btn-lg btn-default">Search by Name</a>
-            </p>
+          <div id="main">
+            <div class="header"><h1>Select a seach method</h1></div>
+	    <div class="content">
+	      <p>Foodle is an easy Single Page Application allowing fast access to information about restaurants in your region. To begin, please select
+	      a search option either by name or criteria</p>
+	      <div class="pure-g">
+		<div class="pure-u-1 pure-u-md-1-2">
+		  <a href="./search-by-criteria.html" class="pure-button pure-button-primary" style="margin: 2px; display:block; background: rgb(223, 117, 20);">Search by Criteria</a>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-2">
+		  <a href="./searchByName.html" class="pure-button pure-button-primary" style="margin: 2px; display:block; background: rgb(28, 184, 65);">Search by Name</a>
+		</div>
+	      </div>
+	    </div>
+
+	    <div class="footer">
+	      <div class="legal pure-g">
+	      <div class="pure-u-1 u-sm-1-2">
+		<p class="legal-license">Foodle, by IS Team 8.</p>
+	      </div>
+	      </div>
+	    </div>
+
           </div>
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Restaurant Finder, by IS Team 8.</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
 
     </div>
 
@@ -70,5 +71,5 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="./bootstrap.min.js"></script>  </body>
+    <script src="http://purecss.io/js/ui.js"></script></body>
 </html>
