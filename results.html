@@ -102,7 +102,7 @@
 				    <div class="input-group">
 						<input type="text" class="form-control" placeholder="Search for restaurant...">
 					    <span class="input-group-btn">
-					    	<button class="btn btn-default" type="button">Go!</button>
+					    	<button class="btn btn-default" type="button" onclick="dosearch()">Go!</button>
 					    </span>
 					</div>
 					<div class="input-group centered">
@@ -112,7 +112,7 @@
 					  <button class="btn btn-default btn-sm dropdown-toggle buttonPosition" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    Native <span class="caret"></span>
 					  </button>
-					  <ul class="dropdown-menu">
+					  <ul class="dropdown-menu" id="cu">
 					    <li>Native</li>
 					    <li>Foreign</li>
 					  </ul>
@@ -120,7 +120,7 @@
 				</div>
 				<div class="input-group centeredDistance">
 				  <span class="input-group-addon" id="sizing-addon2">Distance:</span>
-				  <input type="text" class="form-control" placeholder="Enter distance.." aria-describedby="sizing-addon2">
+				  <input type="text" class="form-control" placeholder="Enter distance.." aria-describedby="sizing-addon2" id="dist">
 				</div>
 				<div class="input-group centered">
 	  				<span class="input-group-addon" id="basic-addon1">Rating:</span>
@@ -129,7 +129,7 @@
 					  <button class="btn btn-default btn-sm dropdown-toggle buttonPosition" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    5 Stars <span class="caret"></span>
 					  </button>
-					  <ul class="dropdown-menu">
+					  <ul class="dropdown-menu" id="rate">
 					    <li>5 Stars</li>
 					    <li>4 Stars</li>
 					    <li>3 Stars</li>
@@ -145,7 +145,7 @@
 					  <button class="btn btn-default btn-sm dropdown-toggle buttonPosition" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    N/A <span class="caret"></span>
 					  </button>
-					  <ul class="dropdown-menu">
+					  <ul class="dropdown-menu" id="extra">
 					    <li>N/A</li>
 					    <li>vegan</li>
 						<li>diet</li>
@@ -160,7 +160,7 @@
 					  <button class="btn btn-default btn-sm dropdown-toggle buttonPosition" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					     Inexpensive <span class="caret"></span>
 					  </button>
-					  <ul class="dropdown-menu">
+					  <ul class="dropdown-menu" id="price">
 					    <li>Inexpensive</li>
 					    <li>Moderate</li>
 					    <li>Expensive</li>
@@ -228,7 +228,31 @@
         <script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
     	<script src="./bootstrap.min.js"></script>  
 	<script src="./results.js"></script>
-	
+		<script type="text/javascript"> 
+			var c='';
+			var dist=1000;
+			var r=0;
+			var p=0;
+			var e="";
+		$('#cu li').on('click', function(){
+			c=$(this).text();
+		});
+		$('#exta li').on('click', function(){
+			e=($(this).text());
+		});
+		$('#price li').on('click', function(){
+			p=($(this).text());
+		});
+		$('#rating li').on('click', function(){
+			r=2;
+		});	
+	function dosearch(){
+		var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,parseInt(rf:document.getElementById("dist").value)};
+		//localStorage.getItem('kwds');
+		sessionStorage.setItem('kwds',JSON.stringify(kwds));
+		window.location.replace("./results.html");
+	}
+</script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Fuqax5sLGDq4KRkjaTobvhq-y-UyNVA&callback=initMap">
     </script>
