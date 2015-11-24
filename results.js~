@@ -1,9 +1,5 @@
 var map;
 var restaurantData;
-var loc='Glasgow';
-var limit=20;
-var sortby=0;
-var radius_filter=1000;
 
 	function initMap() {
 	  map = new google.maps.Map(document.getElementById('map'), {
@@ -16,15 +12,14 @@ var radius_filter=1000;
 
 
 $(document).ready(function(){
-	var rq=JSON.parse(sessionStorage.getItem('kwds'));
-	get_data(rq.terms,rq.co,rq.loc);
+	var rq=sessionStorage.getItem('kwds');
+	get_data(rq.terms,rq.co,rq.loc,rq.lim,rq.sb,rq.rf);
 
 });
 //terms=keyword to search for,location=city,street,post code etc,limit=how many results you want,
 //sortby=0=Best matched (default), 1=Distance, 2=Highest Rated.,radius_filter=radius in which to look for restaurants
-        function get_data(terms,coordinates){
-	    terms=terms.toLowerCase();
-	    terms=terms.replace(/ /g,'-').replace(/[^\w-]+/g,'');
+        function get_data(terms,coordinates,loc='Glasgow',limit=20,sortby=0,radius_filter=1000){
+	    terms=terms.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
             var auth = {               
                 consumerKey : "dkfap0uAB8Sr7XL7VUi3qQ",
                 consumerSecret : "lj03Y4N8AFOv_zBfGBz5vLeoaKU",
@@ -136,17 +131,13 @@ function populate(data){
 			  });
 			
 			  markers[i] = new google.maps.Marker({
-			    position: {lat: venueData.location.coordinate.latitude, lng: venueData.location.coordinate.longitude  },
+			    position: {lat: venueData.location.lat, lng: venueData.location.lng  },
 			    map: map,
 			    title: restaurantName
 			  });
 			  //TODO: alex - ask Nasko not sure why it is not working
 			  markers[i].addListener('click', function(i) {
 				  infowindows[i].open(map, markers[i]);
-				  for (var j=0;j<restaurantData.length;j++){
-					  if (i!=j)
-						  infowindows[j].close();
-				  }
 			  }.bind(this, i));
 		
 		}
