@@ -76,9 +76,9 @@
     <script src="./bootstrap.min.js"></script>  
 <script type="text/javascript">   
 function dosearch(){
-	var kwds={'terms':document.getElementById("kwds").value,co:null,loc:'Glasgow',lim:20,sb:0,rf:1000};
-	//localStorage.getItem('kwds');
-	sessionStorage.setItem('kwds',JSON.stringify(kwds));
+	var kwds={'terms':document.getElementById("kwds"),co:null,loc:'Glasgow',lim:20,sb:0,rf:1000};
+	localStorage.getItem('kwds');
+	localStorage.setItem('kwds',kwds);
 	window.location.replace("./results.html");
 }
 </script> 
