@@ -1,0 +1,19 @@
+.cuisine{
+	width:120px !important;
+}
+.centered{
+	width: 20%;
+	margin: 0 auto;
+}
+.centeredDistance{
+	width: 29%;
+	margin: 0 auto;	
+	
+}
+.buttonPosition{
+	position: absolute !important;
+    top: 0px;
+    left: 0px;
+    width: 119px;
+    height: 32px;	
+}

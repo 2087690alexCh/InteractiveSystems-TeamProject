@@ -1,0 +1,5 @@
+https://api.foursquare.com/v2/venues/search?ll=55.86,-4.24&oauth_token=S4ARV15BGVPVEXK1DQMQENJBDBSQA5CFGZFYTC4P5ZN1K0VS&v=20151122
+
+https://developer.foursquare.com/docs/explore#req=venues/search%3Fll%3D40.7,-74
+
+https://www.yelp.co.uk/developers/manage_api_keys
