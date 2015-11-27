@@ -2,23 +2,3 @@
 	float: left;
 }
 
-#main {
-	padding-top:50px;
-}
-
-.header {
-	padding-top:0px;
-	background:#1f8dd6 none repeat scroll 0 0;
-}
-
-.pure-menu-heading img {
-	height:50px;
-}
-
-.pure-menu-link {
-	color:#333;
-}
-
-.inner {
-	color:#333;
-}
