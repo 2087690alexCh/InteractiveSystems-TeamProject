@@ -125,7 +125,7 @@
 			r=2;
 		});	
   	function dosearch(){
-  		var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,parseInt(rf:document.getElementById("dist").value)};
+  		var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,rf:parseInt(document.getElementById("dist").value)};
   		//localStorage.getItem('kwds');
   		sessionStorage.setItem('kwds',JSON.stringify(kwds));
   		window.location.replace("./results.html");
