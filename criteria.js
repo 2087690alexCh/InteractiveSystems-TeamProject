@@ -38,7 +38,7 @@
       return;
     }
 
-    var url = 'results.html?';
+    var url = 'results.html#';
     url += values.join('&');
     window.location = url;
   });

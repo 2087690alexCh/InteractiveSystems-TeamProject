@@ -22,6 +22,19 @@ function drawChart(restaurantId) {
   chart.draw(tableData, options);
 }
 
+var hash = window.location.hash.substring(1);
+var hashSplit = hash.split('&');
+var params = {};
+
+for (var i = 0; i < hashSplit.length; ++i) {
+  var paramSplit = hashSplit[i].split('=');
+  var paramKey = paramSplit[0];
+  var paramValue = paramSplit[1];
+  
+  params[paramKey] = paramValue;
+  $('#' + paramKey + '_value').val(paramValue);
+}
+
 var loc = 'Glasgow';
 var limit = 20;
 var sortby = 0;
