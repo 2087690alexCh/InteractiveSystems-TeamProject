@@ -22,7 +22,6 @@ function drawChart() {
   chart.draw(data, options);
 }
 
-var restaurantData;
 var loc = 'Glasgow';
 var limit = 20;
 var sortby = 0;
@@ -92,9 +91,8 @@ function get_data(terms, coordinates) {
   });            
 }
 
-function populate(data) {
-  console.log(data);
-  restaurantData = data;
+function populate(restaurantData) {
+  console.log(restaurantData);
     
   var infowindows = [];
   var markers = [];
@@ -154,30 +152,4 @@ function populate(data) {
       }
     }.bind(this, i));
   }
-}
-
-var c = '';
-var dist = 1000;
-var r = 0;
-var p = 0;
-var e = '';
-
-$('#cu li').click(function() {
-  c = $(this).text();
-});
-$('#exta li').click(function() {
-  e = $(this).text();
-});
-$('#price li').click(function() {
-  p = $(this).text();
-});
-$('#rating li').click(function() {
-  r = 2;
-});
-
-function dosearch(){
-  var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,rf:parseInt(document.getElementById("dist").value)};
-  //localStorage.getItem('kwds');
-  sessionStorage.setItem('kwds',JSON.stringify(kwds));
-  window.location.replace("./results.html");
 }
