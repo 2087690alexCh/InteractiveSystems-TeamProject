@@ -111,20 +111,20 @@ function populate(restaurantData) {
       fakeData[i].push([2000 + j, Math.floor(Math.random() * 501) / 100]);
     }
 
-    var venueData = restaurantData[i];
-    var restaurantName = venueData.name;
-    var number = venueData.phone;
-    var categories = venueData.categories;//array of object each of them with a name
-    var url = venueData.url;
+    var venueData = restaurantData[i] ||' ';
+    var restaurantName = venueData.name ||' ';
+    var number = venueData.phone ||' ';
+    var categories = venueData.categories ||' ';//array of object each of them with a name
+    var url = venueData.url ||' ';
 
-    var vLocation = venueData.location;
+    var vLocation = venueData.location ||' ';
     var location = {
-      address: vLocation.address,
-      cc: vLocation.cc,
-      city: vLocation.city,
-      country: vLocation.country_code,
-      distance: vLocation.distance,
-      formattedAddress: vLocation.display_address
+      address: vLocation.address ||' ',
+      cc: vLocation.cc||' ',
+      city: vLocation.city||' ',
+      country: vLocation.country_code||' ',
+      distance: vLocation.distance||' ',
+      formattedAddress: vLocation.display_address||' '
     };
 
     var contentString = '<div id="content">'+
@@ -133,12 +133,12 @@ function populate(restaurantData) {
                 '<h1 id="firstHeading" class="firstHeading">' + restaurantName +'</h1>' +
                 '<div id="bodyContent">'+
                 '<p><b>Contact:</b>' + number +
-                '<b>Address:</b>'+ location.address + 
+                '<br><b>Address:</b>'+ location.address + 
                 location.cc +
                 location.city +
                 location.country +
-                '<b>Distance from current location:</b>' + location.distance
-                '<b>Web page:</b>'+ url +'</p>'+
+                '<br><b>Distance from current location:</b>' + location.distance
+                '<br><b>Web page:</b>'+ url +'</p>'+
         '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
         'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
         '(last visited June 22, 2009).</p>'+
