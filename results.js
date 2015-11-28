@@ -1,7 +1,41 @@
-var fakeData = [];
+// Initialize map
+var map = new google.maps.Map(document.getElementById('map'), {
+  center: { lat: 55.86, lng: -4.24 },
+  zoom: 8
+});
 
-function drawChart(restaurantId) {
-  var tableData = google.visualization.arrayToDataTable(fakeData[restaurantId]);
+// Get parameters from Search by Criteria
+var hash = window.location.hash.substring(1);
+var hashSplit = hash.split('&');
+var params = {};
+
+for (var i = 0; i < hashSplit.length; ++i) {
+  var paramSplit = hashSplit[i].split('=');
+  var paramKey = paramSplit[0];
+  var paramValue = paramSplit[1];
+
+  if (paramKey === 'distance') {
+    paramValue = paramValue
+      .split(' ').join('')
+      .split('<').join('')
+      .split('km').join('');
+    paramValue = 1000 * parseInt(paramValue);
+  } else if (paramKey === 'rating') {
+    paramValue = paramValue.length;
+  }
+  
+  params[paramKey] = paramValue;
+  $('#' + paramKey + '_value').val(paramValue);
+}
+
+// Get parameters from Search by Name
+getData(params.terms);
+
+// Functions
+
+// Ratings through the years chart
+function drawChart(data) {
+  var tableData = google.visualization.arrayToDataTable(data);
   var options = {
     title: 'Some Restaurant data',
     curveType: 'function',
@@ -12,35 +46,9 @@ function drawChart(restaurantId) {
   chart.draw(tableData, options);
 }
 
-var hash = window.location.hash.substring(1);
-var hashSplit = hash.split('&');
-var params = {};
-
-for (var i = 0; i < hashSplit.length; ++i) {
-  var paramSplit = hashSplit[i].split('=');
-  var paramKey = paramSplit[0];
-  var paramValue = paramSplit[1];
-  
-  params[paramKey] = paramValue;
-  $('#' + paramKey + '_value').val(paramValue);
-}
-
-var loc = 'Glasgow';
-var limit = 20;
-var sortby = 0;
-var radius_filter = 1000;
-
-var map = new google.maps.Map(document.getElementById('map'), {
-  center: { lat: 55.86, lng: -4.24 },
-  zoom: 8
-});
-
-var rq = JSON.parse(sessionStorage.getItem('kwds'));
-get_data(rq.terms, rq.co, rq.loc);
-
 //terms=keyword to search for,location=city,street,post code etc,limit=how many results you want,
 //sortby=0=Best matched (default), 1=Distance, 2=Highest Rated.,radius_filter=radius in which to look for restaurants
-function get_data(terms, coordinates) {
+function getData(terms, coordinates, radius_filter, location, limit, sortby) {
   terms = terms.toLowerCase();
   terms = terms.replace(/ /g,'-').replace(/[^\w-]+/g,'');
 
@@ -59,11 +67,11 @@ function get_data(terms, coordinates) {
 
   var parameters = [];
   parameters.push(['term', terms]);
-  parameters.push(['location', loc]);
+  parameters.push(['location', location || 'Glasgow']);
   if (coordinates != null) parameters.push(['cll',coordinates]);
-  parameters.push(['limit', limit]);
-  parameters.push(['sort', sortby]);
-  parameters.push(['radius_filter', radius_filter]);
+  parameters.push(['limit', limit || 20]);
+  parameters.push(['sort', sortby || 0]);
+  parameters.push(['radius_filter', radius_filter || 1000]);
   parameters.push(['callback', 'cb']);
   parameters.push(['oauth_consumer_key', auth.consumerKey]);
   parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
@@ -100,8 +108,7 @@ function populate(restaurantData) {
 
   var infowindows = [];
   var markers = [];
-
-  fakeData = [];
+  var fakeData = [];
 
   for (var i = 0; i < restaurantData.length; ++i) {
     fakeData.push([]);
@@ -159,12 +166,11 @@ function populate(restaurantData) {
     markers.push(marker);
     
     //TODO: alex - ask Nasko not sure why it is not working
-    markers[i].addListener('click', function(i) {
-      drawChart(i);
+    markers[i].addListener('click', function(i, data) {
+      for (var j = 0; j < restaurantData.length; j++) infowindows[j].close();
       infowindows[i].open(map, markers[i]);
-      for (var j = 0; j < restaurantData.length; j++) {
-        if (i != j) infowindows[j].close();
-      }
-    }.bind(this, i));
+
+      drawChart(data);
+    }.bind(this, i, fakeData[i]));
   }
 }

@@ -1,5 +1,16 @@
 (function($) {
 
+  $('.selectable').each(function(index) {
+    var id = $(this).attr('id');
+    var targetId = id + '_value';
+
+    var $firstLink = $(this).find('a').eq(0);
+    var value = $firstLink.html().trim();
+    value = value.split('&lt;').join('<');
+    
+    $('#' + targetId).val(value);
+  });
+
   $('.selectable').click(function(event) {
     event.preventDefault();
 
@@ -19,8 +30,6 @@
     event.preventDefault();
 
     var values = [];
-    var areAllInputesFilled = true;
-
     $('#form').find('input').each(function(i, el) {
       var $this = $(this);
       var id = $this.attr('id');
@@ -28,15 +37,8 @@
       var key = id.split('_value').join('');
       var value = $this.val().trim();
 
-      if (!value) areAllInputesFilled = false;
-
       values.push(key + '=' + value);
     });
-
-    if (!areAllInputesFilled) {
-      alert('Please, fill all inputs.');
-      return;
-    }
 
     var url = 'results.html#';
     url += values.join('&');
