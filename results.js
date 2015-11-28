@@ -97,22 +97,23 @@ function populate(restaurantData) {
   var infowindows = [];
   var markers = [];
 
-  for (var i = 0; i < restaurantData.length; i++) {
+  for (var i = 0; i < restaurantData.length; ++i) {
     var venueData = restaurantData[i];
     var restaurantName = venueData.name;
     var number = venueData.phone;
     var categories = venueData.categories;//array of object each of them with a name
-    
-    var location = {};
-    location.address = venueData.location.address;  
-    location.cc = venueData.location.cc;
-    location.city = venueData.location.city;
-    location.country = venueData.location.country_code;
-    location.distance = venueData.location.distance;
-    location.formattedAddress = venueData.location.display_address;
-    
     var url = venueData.url;
-    
+
+    var vLocation = venueData.location;
+    var location = {
+      address: vLocation.address,
+      cc: vLocation.cc,
+      city: vLocation.city,
+      country: vLocation.country_code,
+      distance: vLocation.distance,
+      formattedAddress: vLocation.display_address
+    };
+
     var contentString = '<div id="content">'+
                 '<div id="siteNotice">'+
                 '</div>'+
