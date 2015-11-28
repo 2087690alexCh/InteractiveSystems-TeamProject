@@ -1,15 +1,10 @@
-function drawChart(data) {
-  var tableData = google.visualization.arrayToDataTable(data);
-  var options = {
-    title: 'Some Restaurant data',
-    curveType: 'function',
-    legend: { position: 'bottom' },
-    hAxis: { format: '' }
-  };
-  var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-  chart.draw(tableData, options);
-}
+// Initialize map
+var map = new google.maps.Map(document.getElementById('map'), {
+  center: { lat: 55.86, lng: -4.24 },
+  zoom: 8
+});
 
+// Get parameters from Search by Criteria
 var hash = window.location.hash.substring(1);
 var hashSplit = hash.split('&');
 var params = {};
@@ -23,22 +18,32 @@ for (var i = 0; i < hashSplit.length; ++i) {
   $('#' + paramKey + '_value').val(paramValue);
 }
 
+
+// Get parameters from Search by Name
 var loc = 'Glasgow';
 var limit = 20;
 var sortby = 0;
 var radius_filter = 1000;
 
-var map = new google.maps.Map(document.getElementById('map'), {
-  center: { lat: 55.86, lng: -4.24 },
-  zoom: 8
-});
-
 var rq = JSON.parse(sessionStorage.getItem('kwds'));
-get_data(rq.terms, rq.co, rq.loc);
+console.log(rq);
+getData(rq.terms, rq.co, rq.loc);
+
+function drawChart(data) {
+  var tableData = google.visualization.arrayToDataTable(data);
+  var options = {
+    title: 'Some Restaurant data',
+    curveType: 'function',
+    legend: { position: 'bottom' },
+    hAxis: { format: '' }
+  };
+  var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+  chart.draw(tableData, options);
+}
 
 //terms=keyword to search for,location=city,street,post code etc,limit=how many results you want,
 //sortby=0=Best matched (default), 1=Distance, 2=Highest Rated.,radius_filter=radius in which to look for restaurants
-function get_data(terms, coordinates) {
+function getData(terms, coordinates) {
   terms = terms.toLowerCase();
   terms = terms.replace(/ /g,'-').replace(/[^\w-]+/g,'');
 
