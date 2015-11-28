@@ -18,17 +18,13 @@ for (var i = 0; i < hashSplit.length; ++i) {
   $('#' + paramKey + '_value').val(paramValue);
 }
 
-
 // Get parameters from Search by Name
-var loc = 'Glasgow';
-var limit = 20;
-var sortby = 0;
-var radius_filter = 1000;
-
 var rq = JSON.parse(sessionStorage.getItem('kwds'));
-console.log(rq);
-getData(rq.terms, rq.co, rq.loc);
+getData(rq.terms, rq.co);
 
+// Functions
+
+// Ratings through the years chart
 function drawChart(data) {
   var tableData = google.visualization.arrayToDataTable(data);
   var options = {
@@ -43,7 +39,7 @@ function drawChart(data) {
 
 //terms=keyword to search for,location=city,street,post code etc,limit=how many results you want,
 //sortby=0=Best matched (default), 1=Distance, 2=Highest Rated.,radius_filter=radius in which to look for restaurants
-function getData(terms, coordinates) {
+function getData(terms, coordinates, loc, limit, sortby, radius_filter) {
   terms = terms.toLowerCase();
   terms = terms.replace(/ /g,'-').replace(/[^\w-]+/g,'');
 
@@ -62,11 +58,11 @@ function getData(terms, coordinates) {
 
   var parameters = [];
   parameters.push(['term', terms]);
-  parameters.push(['location', loc]);
+  parameters.push(['location', loc || 'Glasgow']);
   if (coordinates != null) parameters.push(['cll',coordinates]);
-  parameters.push(['limit', limit]);
-  parameters.push(['sort', sortby]);
-  parameters.push(['radius_filter', radius_filter]);
+  parameters.push(['limit', limit || 20]);
+  parameters.push(['sort', sortby || 0]);
+  parameters.push(['radius_filter', radius_filter || 1000]);
   parameters.push(['callback', 'cb']);
   parameters.push(['oauth_consumer_key', auth.consumerKey]);
   parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
