@@ -13,10 +13,21 @@ for (var i = 0; i < hashSplit.length; ++i) {
   var paramSplit = hashSplit[i].split('=');
   var paramKey = paramSplit[0];
   var paramValue = paramSplit[1];
+
+  if (paramKey === 'distance') {
+    paramValue = paramValue
+      .split(' ').join('')
+      .split('<').join('')
+      .split('km').join('');
+    paramValue = 1000 * parseInt(paramValue);
+  } else if (paramKey === 'rating') {
+    paramValue = paramValue.length;
+  }
   
   params[paramKey] = paramValue;
   $('#' + paramKey + '_value').val(paramValue);
 }
+console.log(params);
 
 // Get parameters from Search by Name
 var rq = JSON.parse(sessionStorage.getItem('kwds'));
@@ -39,7 +50,7 @@ function drawChart(data) {
 
 //terms=keyword to search for,location=city,street,post code etc,limit=how many results you want,
 //sortby=0=Best matched (default), 1=Distance, 2=Highest Rated.,radius_filter=radius in which to look for restaurants
-function getData(terms, coordinates, loc, limit, sortby, radius_filter) {
+function getData(terms, coordinates, radius_filter, location, limit, sortby) {
   terms = terms.toLowerCase();
   terms = terms.replace(/ /g,'-').replace(/[^\w-]+/g,'');
 
@@ -58,7 +69,7 @@ function getData(terms, coordinates, loc, limit, sortby, radius_filter) {
 
   var parameters = [];
   parameters.push(['term', terms]);
-  parameters.push(['location', loc || 'Glasgow']);
+  parameters.push(['location', location || 'Glasgow']);
   if (coordinates != null) parameters.push(['cll',coordinates]);
   parameters.push(['limit', limit || 20]);
   parameters.push(['sort', sortby || 0]);
