@@ -166,3 +166,28 @@ function populate(data) {
     }.bind(this, i));
   }
 }
+
+    var c='';
+    var dist=1000;
+    var r=0;
+    var p=0;
+    var e="";
+    $('#cu li').click(function(){
+      c=$(this).text();
+    });
+    $('#exta li').click(function(){
+      e=($(this).text());
+    });
+    $('#price li').click(function(){
+      p=($(this).text());
+    });
+    $('#rating li').click(function(){
+      r=2;
+    });
+
+    function dosearch(){
+      var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,rf:parseInt(document.getElementById("dist").value)};
+      //localStorage.getItem('kwds');
+      sessionStorage.setItem('kwds',JSON.stringify(kwds));
+      window.location.replace("./results.html");
+    }
