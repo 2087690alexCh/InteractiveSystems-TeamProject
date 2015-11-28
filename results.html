@@ -132,22 +132,21 @@
 
     </div>
 
-    <!--  core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->    
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-        <!--script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script-->
-        <script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="http://purecss.io/js/ui.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Fuqax5sLGDq4KRkjaTobvhq-y-UyNVA"></script>
-		<script src="./results.js"></script>
-		<script type="text/javascript"> 
-			var c='';
-			var dist=1000;
-			var r=0;
-			var p=0;
-			var e="";
+  <!--  core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->    
+  <!--script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script-->
+  <script src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://purecss.io/js/ui.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Fuqax5sLGDq4KRkjaTobvhq-y-UyNVA"></script>
+	<script src="./results.js"></script>
+	<script> 
+		var c='';
+		var dist=1000;
+		var r=0;
+		var p=0;
+		var e="";
 		$('#cu li').on('click', function(){
 			c=$(this).text();
 		});
@@ -160,14 +159,14 @@
 		$('#rating li').on('click', function(){
 			r=2;
 		});	
-	function dosearch(){
-		var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,parseInt(rf:document.getElementById("dist").value)};
-		//localStorage.getItem('kwds');
-		sessionStorage.setItem('kwds',JSON.stringify(kwds));
-		window.location.replace("./results.html");
-	}
+  	function dosearch(){
+  		var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,parseInt(rf:document.getElementById("dist").value)};
+  		//localStorage.getItem('kwds');
+  		sessionStorage.setItem('kwds',JSON.stringify(kwds));
+  		window.location.replace("./results.html");
+  	}
 	</script>
 	    
-    </body>
+</body>
 </html>
 
