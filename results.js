@@ -96,38 +96,24 @@ function populate(data) {
   console.log(data);
   restaurantData = data;
     
-  var venueData;
-
-  var restaurantName;
-  var number;
-  var categories;
-  var location = {};
-  var markers = [];
   var infowindows = [];
+  var markers = [];
+
   for (var i = 0; i < restaurantData.length; i++) {
-    venueData = restaurantData[i];
-    restaurantName = venueData.name;
-    number = venueData.phone;
-    categories = venueData.categories;//array of object each of them with a name
+    var venueData = restaurantData[i];
+    var restaurantName = venueData.name;
+    var number = venueData.phone;
+    var categories = venueData.categories;//array of object each of them with a name
+    
+    var location = {};
     location.address = venueData.location.address;  
     location.cc = venueData.location.cc;
     location.city = venueData.location.city;
     location.country = venueData.location.country_code;
     location.distance = venueData.location.distance;
     location.formattedAddress = venueData.location.display_address;
-    url = venueData.url;
     
-    console.log(venueData);
-    console.log(restaurantName);
-    console.log(number);
-    console.log(categories);
-    console.log(location.address);
-    console.log(location.cc);
-    console.log(location.city);
-    console.log(location.country);
-    console.log(location.distance);
-    console.log(location.formattedAddress);
-    console.log(url);
+    var url = venueData.url;
     
     var contentString = '<div id="content">'+
                 '<div id="siteNotice">'+
@@ -147,15 +133,18 @@ function populate(data) {
         '</div>'+
         '</div>';
 
-    infowindows[i] = new google.maps.InfoWindow({
-      content: contentString
-    });
+    var infoWindow = new google.maps.InfoWindow({content: contentString});
+    infowindows.push(infoWindow);
     
-    markers[i] = new google.maps.Marker({
-      position: { lat: venueData.location.coordinate.latitude, lng: venueData.location.coordinate.longitude },
+    var marker = new google.maps.Marker({
+      position: {
+        lat: venueData.location.coordinate.latitude,
+        lng: venueData.location.coordinate.longitude
+      },
       map: map,
       title: restaurantName
     });
+    markers.push(marker); 
     
     //TODO: alex - ask Nasko not sure why it is not working
     markers[i].addListener('click', function(i) {
@@ -167,27 +156,28 @@ function populate(data) {
   }
 }
 
-    var c='';
-    var dist=1000;
-    var r=0;
-    var p=0;
-    var e="";
-    $('#cu li').click(function(){
-      c=$(this).text();
-    });
-    $('#exta li').click(function(){
-      e=($(this).text());
-    });
-    $('#price li').click(function(){
-      p=($(this).text());
-    });
-    $('#rating li').click(function(){
-      r=2;
-    });
+var c = '';
+var dist = 1000;
+var r = 0;
+var p = 0;
+var e = '';
 
-    function dosearch(){
-      var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,rf:parseInt(document.getElementById("dist").value)};
-      //localStorage.getItem('kwds');
-      sessionStorage.setItem('kwds',JSON.stringify(kwds));
-      window.location.replace("./results.html");
-    }
+$('#cu li').click(function() {
+  c = $(this).text();
+});
+$('#exta li').click(function() {
+  e = $(this).text();
+});
+$('#price li').click(function() {
+  p = $(this).text();
+});
+$('#rating li').click(function() {
+  r = 2;
+});
+
+function dosearch(){
+  var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,rf:parseInt(document.getElementById("dist").value)};
+  //localStorage.getItem('kwds');
+  sessionStorage.setItem('kwds',JSON.stringify(kwds));
+  window.location.replace("./results.html");
+}
