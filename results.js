@@ -5,15 +5,10 @@ var limit=20;
 var sortby=0;
 var radius_filter=1000;
 
-	function initMap() {
-	  map = new google.maps.Map(document.getElementById('map'), {
-	    center: {lat: 55.86, lng: -4.24  },
-	    zoom: 8
-	  });
-	  
-	}
-	
-
+map = new google.maps.Map(document.getElementById('map'), {
+  center: {lat: 55.86, lng: -4.24  },
+  zoom: 8
+});
 
 $(document).ready(function(){
 	var rq=JSON.parse(sessionStorage.getItem('kwds'));
