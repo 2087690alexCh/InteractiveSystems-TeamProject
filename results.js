@@ -27,11 +27,9 @@ for (var i = 0; i < hashSplit.length; ++i) {
   params[paramKey] = paramValue;
   $('#' + paramKey + '_value').val(paramValue);
 }
-console.log(params);
 
 // Get parameters from Search by Name
-var rq = JSON.parse(sessionStorage.getItem('kwds'));
-getData(rq.terms, rq.co);
+getData(params.terms);
 
 // Functions
 
