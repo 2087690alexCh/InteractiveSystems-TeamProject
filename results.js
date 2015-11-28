@@ -31,12 +31,33 @@ for (var i = 0; i < hashSplit.length; ++i) {
   $('#' + paramKey + '_value').val(paramValue);
 }
 
+// Hide inputs with no values
+$('#form').find('input').each(function (index) {
+  if ($(this).attr('id') == 'terms_value') return;
+  if (!$(this).val()) $(this).hide();
+});
+
 params.terms = terms.join(',');
+console.log(params);
 
 // Get parameters from Search by Name
 getData(params.terms, null, params.distance);
 
+// Events
+// ------
+
+$('#form').submit(function(event) {
+  event.preventDefault();
+
+  var newTerms = $('#terms_value').val().trim();
+  var value = 'terms=' + newTerms;
+  var url = 'results.html#' + value;
+  window.location = url;
+  location.reload();
+});
+
 // Functions
+// ---------
 
 // Ratings through the years chart
 function drawChart(data) {
@@ -171,11 +192,33 @@ function populate(restaurantData) {
     markers.push(marker);
     
     //TODO: alex - ask Nasko not sure why it is not working
-    markers[i].addListener('click', function(i, data) {
-      for (var j = 0; j < restaurantData.length; j++) infowindows[j].close();
-      infowindows[i].open(map, markers[i]);
-
-      drawChart(data);
-    }.bind(this, i, fakeData[i]));
+    markers[i].addListener('click', markerClick.bind(this, i, fakeData[i], restaurantData.length, infowindows, markers));
   }
+
+  var currentI = 0;
+  markerClick(currentI, fakeData[currentI], restaurantData.length, infowindows, markers);
+
+  $('#previous').click(function(event) {
+    event.preventDefault();
+
+    currentI++;
+    if (currentI >= restaurantData.length) currentI = 0;
+    markerClick(currentI, fakeData[currentI], restaurantData.length, infowindows, markers);
+  });
+
+  $('#next').click(function(event) {
+    event.preventDefault();
+
+    currentI--;
+    if (currentI < 0) currentI = restaurantData.length - 1;
+    markerClick(currentI , fakeData[currentI], restaurantData.length, infowindows, markers);
+  });
+
+}
+
+function markerClick(i, data, restaurantsNum, infowindows, markers) {
+  for (var j = 0; j < restaurantsNum; j++) infowindows[j].close();
+  infowindows[i].open(map, markers[i]);
+
+  drawChart(data);
 }
