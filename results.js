@@ -1,7 +1,5 @@
-var fakeData = [];
-
-function drawChart(restaurantId) {
-  var tableData = google.visualization.arrayToDataTable(fakeData[restaurantId]);
+function drawChart(data) {
+  var tableData = google.visualization.arrayToDataTable(data);
   var options = {
     title: 'Some Restaurant data',
     curveType: 'function',
@@ -100,8 +98,7 @@ function populate(restaurantData) {
 
   var infowindows = [];
   var markers = [];
-
-  fakeData = [];
+  var fakeData = [];
 
   for (var i = 0; i < restaurantData.length; ++i) {
     fakeData.push([]);
@@ -159,12 +156,11 @@ function populate(restaurantData) {
     markers.push(marker);
     
     //TODO: alex - ask Nasko not sure why it is not working
-    markers[i].addListener('click', function(i) {
-      drawChart(i);
+    markers[i].addListener('click', function(i, data) {
+      for (var j = 0; j < restaurantData.length; j++) infowindows[j].close();
       infowindows[i].open(map, markers[i]);
-      for (var j = 0; j < restaurantData.length; j++) {
-        if (i != j) infowindows[j].close();
-      }
-    }.bind(this, i));
+
+      drawChart(data);
+    }.bind(this, i, fakeData[i]));
   }
 }
