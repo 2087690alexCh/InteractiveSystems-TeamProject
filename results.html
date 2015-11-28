@@ -107,23 +107,25 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Fuqax5sLGDq4KRkjaTobvhq-y-UyNVA"></script>
 	<script src="./results.js"></script>
 	<script> 
+	  (function($) {
 		var c='';
 		var dist=1000;
 		var r=0;
 		var p=0;
 		var e="";
-		$('#cu li').on('click', function(){
+		$('#cu li').click(function(){
 			c=$(this).text();
 		});
-		$('#exta li').on('click', function(){
+		$('#exta li').click(function(){
 			e=($(this).text());
 		});
-		$('#price li').on('click', function(){
+		$('#price li').click(function(){
 			p=($(this).text());
 		});
-		$('#rating li').on('click', function(){
+		$('#rating li').click(function(){
 			r=2;
-		});	
+		});
+	  })(jQuery);
   	function dosearch(){
   		var kwds={'terms':c+e,co:null,loc:'Glasgow',lim:20,sb:r,rf:parseInt(document.getElementById("dist").value)};
   		//localStorage.getItem('kwds');
