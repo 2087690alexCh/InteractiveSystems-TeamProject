@@ -95,22 +95,33 @@ function get_data(terms, coordinates) {
     data: parameterMap,
     dataType: 'jsonp',
     async: false,
-    jsonpCallback: 'cb',                
+    jsonpCallback: 'cb',
     success: function(data) {
       populate(data.businesses);
       //workdata=data.businesses;       
       //call map  population function here function(data.businesses);                    
     }
-  });            
+  });
+
 }
 
 function populate(restaurantData) {
   console.log(restaurantData);
-    
+
   var infowindows = [];
   var markers = [];
 
+  //var fakeData = [];
+
   for (var i = 0; i < restaurantData.length; ++i) {
+
+    /*
+    fakeData.push({meta: {}});
+    for (var j = 0; j < 25; ++j) {
+      fakeData[i].meta['' + j] = Math.floor(Math.random() * 501) / 100;
+    }
+    */
+
     var venueData = restaurantData[i];
     var restaurantName = venueData.name;
     var number = venueData.phone;
