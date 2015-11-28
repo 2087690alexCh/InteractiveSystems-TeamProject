@@ -8,13 +8,16 @@ var map = new google.maps.Map(document.getElementById('map'), {
 var hash = window.location.hash.substring(1);
 var hashSplit = hash.split('&');
 var params = {};
+var terms = [];
 
 for (var i = 0; i < hashSplit.length; ++i) {
   var paramSplit = hashSplit[i].split('=');
   var paramKey = paramSplit[0];
   var paramValue = paramSplit[1];
 
-  if (paramKey === 'distance') {
+  if (paramKey === 'cuisine' || paramKey === 'terms') {
+    terms.push(paramValue);
+  } else if (paramKey === 'distance') {
     paramValue = paramValue
       .split(' ').join('')
       .split('<').join('')
@@ -28,8 +31,10 @@ for (var i = 0; i < hashSplit.length; ++i) {
   $('#' + paramKey + '_value').val(paramValue);
 }
 
+params.terms = terms.join(',');
+
 // Get parameters from Search by Name
-getData(params.terms);
+getData(params.terms, null, params.distance);
 
 // Functions
 
