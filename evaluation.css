@@ -1,8 +1,24 @@
 .canvas{
 	border:1px solid white;
 	border-radius: 25px;
-	position: fixed;
+	position: absolute;
 	z-index: 1;
     left: 0px;
     top: 10px;
+}
+
+#correctClicks div,
+#incorrectClicks div {
+  font: 10px sans-serif;
+  background: #50A052;
+  text-align: right;
+  padding: 7px;
+  margin: 1px;
+  color: #fff;
+}
+
+#correctClicks { margin-bottom: 15px; }
+
+#incorrectClicks div {
+  background: #E85151;
 }

@@ -1,4 +1,71 @@
+function getMaxTime(arr) {
+	if (!arr.length) return null;
+
+	var maxTime = arr[0].time;
+	for (var i = 0; i < arr.length; ++i) {
+		var time = arr[i].time;
+		if (time > maxTime) maxTime = time;
+	}
+
+	return maxTime;
+}
+
+// Done with the awesome help of: http://bost.ocks.org/mike/bar/
+function drawD3(data, selector) {
+	var x = d3.scale.linear()
+    	.domain([0, getMaxTime(data)])
+    	.range([0, 420]);
+
+	d3.select(selector)
+  		.selectAll('div')
+    		.data(data)
+  		.enter().append('div')
+    		.style('width', function(d) { return x(d.time) + 'px'; })
+    		.text(function(d) { return '{ x: ' + d.x + ', y: ' + d.y + ' }'; });
+}
+
+
 $(document).ready(function(){
+
+	try {
+		var correctClicks = JSON.parse(localStorage.getItem('correctClicks'));
+	} catch (e) {
+		var correctClicks = [];
+	}
+
+	try {
+		var incorrectClicks = JSON.parse(localStorage.getItem('incorrectClicks'));
+	} catch (e) {
+		var incorrectClicks = [];
+	}
+
+	drawD3(correctClicks, '#correctClicks');
+	drawD3(incorrectClicks, '#incorrectClicks');
+    
+    /*
+    var x = d3.scale.linear()
+    	.domain([0, d3.max(correctClicks)])
+    	.range([0, 420]);
+
+    d3.select('#correctClicks')
+        .selectAll('div')
+            .data(correctClicks)
+    	.enter().append('div')
+      		.style('width', function(d) { return x(d) + 'px'; })
+      		.text(function(d) { return correctClicksTexts.shift() + ' (' + d + 's)'; });
+
+  	var y = d3.scale.linear()
+    	.domain([0, d3.max(incorrectClicks)])
+    	.range([0, 420]);
+
+  	d3.select('#incorrectClicks')
+    	.selectAll('div')
+      		.data(incorrectClicks)
+    	.enter().append('div')
+      		.style('width', function(d) { return y(d) + 'px'; })
+      		.text(function(d) { return incorrectClicksTexts.shift() + ' (' + d + 's)'; });
+     */
+
 	mouseClicks = JSON.parse(localStorage.getItem("mouseClicks"));
 	var canvas = document.getElementById("myCanvas");
 	var ctx = canvas.getContext("2d");
