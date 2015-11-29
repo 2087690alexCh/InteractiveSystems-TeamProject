@@ -8,7 +8,7 @@ $(document).ready(function(){
 	
 	ctx.beginPath();
 	ctx.arc(mouseClicks[0].x, mouseClicks[0].y,10,0,2*Math.PI);
-	ctx.fillStyle = 'red';
+	ctx.fillStyle = '#44FF44';
 	ctx.fill();
 	ctx.stroke();
 	
