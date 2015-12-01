@@ -22,3 +22,30 @@
 #incorrectClicks div {
   background: #E85151;
 }
+
+.chart {
+    background: white;
+  margin: 0px auto;
+}
+
+.main text {
+    font: 10px sans-serif;	
+}
+
+.charttitle {
+  font-size: 32px !important;
+}
+
+.axis line, .axis path {
+    shape-rendering: crispEdges;
+    stroke: black;
+    fill: none;
+}
+
+circle {
+    fill: #0b2;
+}
+
+.circlered {
+    fill: #f02;
+}

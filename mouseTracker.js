@@ -1,8 +1,14 @@
 var mouseClicks = [];
 var correctClicks = [];
 var incorrectClicks = [];
+var lastcoords = [0,0];
 
 var lastClickDate = Date.now();
+
+// old browsers don't support log2()
+Math.log2 = Math.log2 || function(x) {
+  return Math.log(x) / Math.LOG2E;
+};
 
 $(document).ready(function(){
 		
@@ -21,13 +27,23 @@ $(document).ready(function(){
 		}
 
 		if(e.button==0){
-			addClick(e.pageX, e.pageY, isCorrect);
+			addClick(e, isCorrect);
 		}
 	});
 	
 });
 
-function addClick(pageX, pageY, isCorrect) {
+function fittsid(e){
+    var coords = [e.pageX, e.pageY];
+    var dist = Math.sqrt((coords[0]-lastcoords[0])*(coords[0]-lastcoords[0])+(coords[1]-lastcoords[1])*(coords[1]-lastcoords[1]));
+    var w = (parseInt($(e.target).css('width'),10));
+    var h = (parseInt($(e.target).css('height'),10));
+    var dimension = Math.sqrt(w*w+h*h);
+    lastcoords = coords;
+    return Math.log2(1+ dist/dimension);
+}
+
+function addClick(event, isCorrect) {
 	var clickInterval = (Date.now() - lastClickDate) / 1000;
 	lastClickDate = Date.now();
 
@@ -35,7 +51,8 @@ function addClick(pageX, pageY, isCorrect) {
 		? correctClicks
 		: incorrectClicks;
 
-	var click = {x: pageX, y: pageY, time: clickInterval};
+
+	var click = {x: event.pageX, y: event.pageY, id:fittsid(event), time: clickInterval};
 	//var click = clickInterval;
 
 	clicks.push(click);

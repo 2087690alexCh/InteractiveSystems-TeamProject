@@ -24,6 +24,90 @@ function drawD3(data, selector) {
     		.text(function(d) { return '{ x: ' + d.x + ', y: ' + d.y + ' }'; });
 }
 
+function showchart(dddd, dddd2, selector){
+    // ADAPTED FROM http://bl.ocks.org/bunkat/2595950
+    var margin = {top: 20, right: 15, bottom: 60, left: 60}
+      , width = 600 - margin.left - margin.right
+      , height = 400 - margin.top - margin.bottom;
+    
+    var combo;
+    if(dddd2 != null)
+	 combo=dddd.concat(dddd2);
+    else
+	 combo=dddd;
+
+    var x = d3.scale.linear()
+              .domain([0, (d3.max(combo, function(d) { return d.id; }))])
+              .range([ 0, width ]);
+    
+    var y = d3.scale.linear()
+    	      .domain([0, (d3.max(combo, function(d) { return d.time; }))])
+    	      .range([ height, 0 ]);
+
+ 
+    var chart = d3.select(selector)
+	.append('svg:svg')
+	.attr('width', width + margin.right + margin.left)
+	.attr('height', height + margin.top + margin.bottom)
+	.attr('class', 'chart')
+
+    var main = chart.append('g')
+	.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+	.attr('width', width)
+	.attr('height', height)
+	.attr('class', 'main')   
+        
+    // draw the x axis
+    var xAxis = d3.svg.axis()
+	.scale(x)
+	.orient('bottom');
+
+    main.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width/2)
+    .attr("y", height + 32)
+    .text("ID");
+
+    main.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", -height/2)
+    .attr("y", -48)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text("time (ms)");
+
+    main.append('g')
+	.attr('transform', 'translate(0,' + height + ')')
+	.attr('class', 'main axis date')
+	.call(xAxis);
+
+    // draw the y axis
+    var yAxis = d3.svg.axis()
+	.scale(y)
+	.orient('left');
+
+    main.append('g')
+	.attr('transform', 'translate(0,0)')
+	.attr('class', 'main axis date')
+	.call(yAxis);
+
+    var g = main.append("svg:g"); 
+    
+    g.selectAll("scatter-dots")
+      .data(dddd)
+      .enter().append("svg:circle")
+          .attr("cx", function (d,i) { return x(d.id); } )
+          .attr("cy", function (d) { return y(d.time); } )
+          .attr("r", 8);
+
+    g.selectAll("scatter-dots")
+      .data(dddd2)
+      .enter().append("svg:circle")
+	  .attr('class', 'circlered')
+          .attr("cx", function (d,i) { return x(d.id); } )
+          .attr("cy", function (d) { return y(d.time); } )
+          .attr("r", 8);
+}
 
 $(document).ready(function(){
 
@@ -40,7 +124,12 @@ $(document).ready(function(){
 	}
 
 	drawD3(correctClicks, '#correctClicks');
-	drawD3(incorrectClicks, '#incorrectClicks');
+	try{
+		drawD3(incorrectClicks, '#incorrectClicks');
+	} catch (e) {
+		// whatever
+	}
+	showchart(correctClicks, incorrectClicks, '#fitts');
     
     /*
     var x = d3.scale.linear()
