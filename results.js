@@ -10,6 +10,8 @@ var hashSplit = hash.split('&');
 var params = {};
 var terms = [];
 
+var wasAMarkerJustClicked = false;
+
 for (var i = 0; i < hashSplit.length; ++i) {
   var paramSplit = hashSplit[i].split('=');
   var paramKey = paramSplit[0];
@@ -217,6 +219,8 @@ function populate(restaurantData) {
 }
 
 function markerClick(i, data, restaurantsNum, infowindows, markers) {
+  wasAMarkerJustClicked = true;
+
   for (var j = 0; j < restaurantsNum; j++) infowindows[j].close();
   infowindows[i].open(map, markers[i]);
 
