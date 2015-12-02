@@ -65,7 +65,7 @@ $('#form').submit(function(event) {
 function drawChart(data) {
   var tableData = google.visualization.arrayToDataTable(data);
   var options = {
-    title: 'Some Restaurant data',
+    title: 'Ratings over time',
     curveType: 'function',
     legend: { position: 'bottom' },
     hAxis: { format: '' }
